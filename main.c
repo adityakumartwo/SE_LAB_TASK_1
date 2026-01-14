@@ -12,11 +12,9 @@
 int main(){
 
     struct Student students[MAX_STUDENTS];
-
     int count = 0;
 
     printf("--- Student Result System __\n");
-
     printf("Reading data from input.txt ...\n");
 
     // I. Read Input, which take the input from the file.

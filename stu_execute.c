@@ -13,9 +13,7 @@ int read_Input(struct Student s[], int max_size){
     }
 
     int count = 0;
-
     char tempID[20], tempName[50];
-
     float min[5], maj[5];
 
     // It read the file line by line
@@ -57,7 +55,6 @@ int read_Input(struct Student s[], int max_size){
             for (int i = 0; i < 5; i++)
             {
                 s[count].subjects[i].minor = min[i];
-
                 s[count].subjects[i].major = maj[i];
             }
             count++;
@@ -72,7 +69,6 @@ void calcu_Results(struct Student s[], int count){
     for (int i = 0; i < count; i++)
     {
         float grandSum = 0;
-
         int failFlag = 0;
 
         for (int j = 0; j < 5; j++)
@@ -80,7 +76,6 @@ void calcu_Results(struct Student s[], int count){
             float total = s[i].subjects[j].minor + s[i].subjects[j].major;
 
             s[i].subjects[j].total = total;
-
             grandSum += total;
 
             // Student is fail if marks is less than 50
@@ -88,9 +83,7 @@ void calcu_Results(struct Student s[], int count){
         }
 
         s[i].grandTotal = grandSum;
-
         s[i].percentage = grandSum/5.0;
-
         s[i].isFail = failFlag;
 
         show_Grade(s[i].percentage, failFlag, s[i].grade, &s[i].cgpa);
@@ -125,9 +118,7 @@ int valid_Name(char *name){
 int valid_Marks(float minor, float major)
 {
     if(minor < 0 || minor > 40) return 0;
-
     if(major < 0 || major > 60) return 0;
-
     return 1;
 }
 
@@ -139,19 +130,12 @@ void show_Grade(float p, int fail, char *gradeStr, float *cgpa){
         *cgpa = 0.0;
     }
     else if (p>=90) {strcpy(gradeStr,"O"); *cgpa = 10.0 ;}
-
     else if (p>=85) {strcpy(gradeStr,"A+"); *cgpa = 9.0 ;}
-
     else if (p>=75) {strcpy(gradeStr,"A"); *cgpa = 8.0 ;}
-
     else if (p>=65) {strcpy(gradeStr,"B+"); *cgpa = 7.0 ;}
-
     else if (p>=60) {strcpy(gradeStr,"B"); *cgpa = 6.0 ;}
-
     else if (p>=55) {strcpy(gradeStr,"C"); *cgpa = 5.0 ;}
-
     else if (p>=50) {strcpy(gradeStr,"D"); *cgpa = 4.0 ;}
-
     else {strcpy(gradeStr,"F"); *cgpa = 0.0;}
 }
 
@@ -217,15 +201,10 @@ void show_Output(struct Student s[], int count){
         if(strcmp(s[i].grade, "O")==0) gradeCounts[0]++;
 
         else if (strcmp(s[i].grade, "A+")==0) gradeCounts[1]++;
-
         else if (strcmp(s[i].grade, "A")==0) gradeCounts[2]++;
-
         else if (strcmp(s[i].grade, "B+")==0) gradeCounts[3]++;
-
         else if (strcmp(s[i].grade, "B")==0) gradeCounts[4]++;
-
         else if (strcmp(s[i].grade, "C")==0) gradeCounts[5]++;
-
         else if (strcmp(s[i].grade, "D")==0) gradeCounts[6]++;
 
         else gradeCounts[7]++;
@@ -243,38 +222,27 @@ void show_Output(struct Student s[], int count){
     fprintf(fp,"Lowest Perc : %.2f%%\n", minP);
 
     printf("\n No. of students in each grade:\n");
+
     printf("O : %d\n", gradeCounts[0]);
-
     printf("A+: %d\n", gradeCounts[1]);
-
     printf("A : %d\n", gradeCounts[2]);
-
     printf("B+: %d\n", gradeCounts[3]);
-
     printf("B : %d\n", gradeCounts[4]);
-
     printf("C : %d\n", gradeCounts[5]);
-
     printf("D : %d\n", gradeCounts[6]);
 
     printf("F : %d\n", gradeCounts[7]);
 
 
     fprintf(fp,"\n No. of students in each grade:\n");
+
     fprintf(fp,"O : %d\n", gradeCounts[0]);
-
     fprintf(fp,"A+: %d\n", gradeCounts[1]);
-
     fprintf(fp,"A : %d\n", gradeCounts[2]);
-
     fprintf(fp,"B+: %d\n", gradeCounts[3]);
-
     fprintf(fp,"B : %d\n", gradeCounts[4]);
-
     fprintf(fp,"C : %d\n", gradeCounts[5]);
-
     fprintf(fp,"D : %d\n", gradeCounts[6]);
-    
     fprintf(fp,"F : %d\n", gradeCounts[7]);
 
     printf("\nResults saved to results.txt\n");
