@@ -12,6 +12,7 @@ int read_Input(struct Student s[], int max_size){
         return 0;
     }
 
+    
     int count = 0;
     char tempID[20], tempName[50];
     float min[5], maj[5];

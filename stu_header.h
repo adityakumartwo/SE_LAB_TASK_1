@@ -17,7 +17,6 @@ struct Subject{
 };
 
 struct Student {
-
     char id[100];
     char name[60];
     struct Subject subjects[SUBJECTS];

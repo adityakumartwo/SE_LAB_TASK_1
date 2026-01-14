@@ -23,7 +23,6 @@ int main(){
     if(count == 0){
 
         printf("No valid records found.\n");
-        
         return 0;
     }
 
