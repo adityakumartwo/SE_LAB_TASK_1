@@ -1,0 +1,26 @@
+ID         Name            Total      Perc       Grd   CGPA           
+
+S101       Aarav           448.00     89.60      A+    9.00 
+S102       Vivaan          376.00     75.20      A     8.00 
+S103       Aditya          500.00     100.00     O     10.00
+S104       Vihaan          180.00     36.00      F     0.00 
+S105       Arjun           400.00     80.00      A     8.00 
+S106       Sai             470.00     94.00      O     10.00
+S107       Reyansh         250.00     50.00      D     4.00 
+S108       Ayan            250.00     50.00      F     0.00 
+S109       Krishna         450.00     90.00      O     10.00
+S110       Ishan           380.00     76.00      F     0.00 
+S111       Shaurya         400.00     80.00      A     8.00 
+S112       Atharv          330.00     66.00      F     0.00 
+S113       Aryan           300.00     60.00      F     0.00 
+S114       Dhruv           380.00     76.00      A     8.00 
+S115       Kabir           280.00     56.00      C     5.00 
+S116       Anika           488.00     97.60      O     10.00
+S117       Diya            300.00     60.00      B     6.00 
+S118       Myra            350.00     70.00      B+    7.00 
+S119       Zara            350.00     70.00      B+    7.00 
+S120       Aadhya          200.00     40.00      F     0.00 
+
+Class Average: 70.82%
+Highest Perc : 100.00%
+Lowest Perc : 36.00%
