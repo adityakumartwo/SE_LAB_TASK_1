@@ -4,6 +4,7 @@
 #include<ctype.h>
 #include "stu_header.h"
 
+// Function to read data fom input.txt
 int read_Input(struct Student s[], int max_size){
     FILE *fp = fopen("input.txt", "r");
     if(fp==NULL){
@@ -15,10 +16,12 @@ int read_Input(struct Student s[], int max_size){
     char tempID[20], tempName[50];
     float min[5], maj[5];
 
+    // It read the file line by line
     while (fscanf(fp, "%s %s", tempID,tempName) == 2)
     {
         int valid = 1;
 
+        // check ID and Name
         if (valid_ID(tempID, s, count)==0)
         {
             printf("Skipping invalid or duplicate ID: %s\n",tempID);
@@ -31,6 +34,7 @@ int read_Input(struct Student s[], int max_size){
             valid = 0;
         }
 
+        // Read the data and check the marks
         for(int i = 0; i<5; i++){
             fscanf(fp, "%f %f", &min[i], &maj[i]);
             if (valid_Marks(min[i],maj[i])==0)
@@ -40,6 +44,7 @@ int read_Input(struct Student s[], int max_size){
             }
         }
 
+        // only valid data is saved
         if(valid == 1 && count < max_size){
             strcpy(s[count].id, tempID);
             strcpy(s[count].name, tempName);
@@ -55,6 +60,7 @@ int read_Input(struct Student s[], int max_size){
     return count;
 }
 
+// This Function calculate the Total, Grade and CGPA
 void calcu_Results(struct Student s[], int count){
     for (int i = 0; i < count; i++)
     {
@@ -67,6 +73,7 @@ void calcu_Results(struct Student s[], int count){
             s[i].subjects[j].total = total;
             grandSum += total;
 
+            // Student is fail if marks is less than 50
             if(total<50) failFlag = 1;
         }
 
@@ -80,26 +87,29 @@ void calcu_Results(struct Student s[], int count){
     
 }
 
+// check id is valid or duplicate
 int valid_ID(char *id, struct Student s[], int count){
     for (int i = 0; i<strlen(id); i++)
     {
-        if(!isalnum(id[i])) return 0;
+        if(!isalnum(id[i])) return 0; // Must be letter or numbers
     }
     for(int i = 0; i<count; i++)
     {
-        if(strcmp(s[i].id, id) == 0) return 0;
+        if(strcmp(s[i].id, id) == 0) return 0; // Duplicate Check
     }
     return 1;
 }
 
+// check name is valid
 int valid_Name(char *name){
     for(int i = 0; i<strlen(name);i++)
     {
-        if(!isalpha(name[i])) return 0;
+        if(!isalpha(name[i])) return 0; // Must be letter only
     }
     return 1;
 }
 
+// check marks 
 int valid_Marks(float minor, float major)
 {
     if(minor < 0 || minor > 40) return 0;
@@ -107,6 +117,8 @@ int valid_Marks(float minor, float major)
     return 1;
 }
 
+// Determine tha Grade String
+// Crucial Rule: If a Student less than 50%  in any individual subject, they are automatically marked as fail(F), and their CGPA becomes 0.0, regardless of their total percentage
 void show_Grade(float p, int fail, char *gradeStr, float *cgpa){
     if(fail){
         strcpy(gradeStr, "F");
@@ -132,24 +144,45 @@ void show_Output(struct Student s[], int count){
     float classTotal = 0, maxP = -1, minP = 101;
     int gradeCounts[8] = {0};
 
-    printf("\n%-10s %-15s %-10s %-10s %-5s %-15s\n", "ID", "Name", "Total", "Perc", "Grd", "CGPA");
-    fprintf(fp,"%-10s %-15s %-10s %-10s %-5s %-15s\n", "ID", "Name", "Total", "Perc", "Grd", "CGPA");
+    // Columns Headers which show the data in tabular form
+    // Print to Screen
+    printf("\n%-10s %-15s %-25s %-8s %-8s %-5s %-5s\n", "ID", "Name", "Marks (Sub 1-5)", "Total", "Perc", "Grd", "CGPA");
+
+    // Print to File
+    fprintf(fp, "\n%-10s %-15s %-25s %-8s %-8s %-5s %-5s\n", "ID", "Name", "Marks (Sub 1-5)", "Total", "Perc", "Grd", "CGPA");
 
     printf("\n");
     fprintf(fp,"\n");
 
     for (int i = 0; i < count; i++)
     {
-        printf("%-10s %-15s %-10.2f %-10.2f %-5s %-5.2f\n",
-        s[i].id, s[i].name, s[i].grandTotal, s[i].percentage, s[i].grade, s[i].cgpa);
+        // string hold the list of marks (e.g., "50","56","60","80","90",)
+        char marksStr[50] = "";
+        char temp[10];
+        for (int j = 0; j < 5; j++)
+        {
+            sprintf(temp, "%.0f", s[i].subjects[j].total);
+            strcat(marksStr,temp);
+            if (j<4)
+            {
+                strcat(marksStr, ","); 
+            }
+        }
+        
+        //Print Row to Console
+        printf("%-10s %-15s %-25s %-8.2f %-8.2f %-5s %-5.2f\n",
+        s[i].id, s[i].name, marksStr, s[i].grandTotal, s[i].percentage, s[i].grade, s[i].cgpa);
 
-        fprintf(fp, "%-10s %-15s %-10.2f %-10.2f %-5s %-5.2f\n",
-        s[i].id, s[i].name, s[i].grandTotal, s[i].percentage, s[i].grade, s[i].cgpa);
+        //Print Row to file
+        fprintf(fp, "%-10s %-15s %-25s %-8.2f %-8.2f %-5s %-5.2f\n",
+        s[i].id, s[i].name, marksStr, s[i].grandTotal, s[i].percentage, s[i].grade, s[i].cgpa);
 
+        // Stats Logic
         classTotal += s[i].percentage;
         if(s[i].percentage>maxP)maxP = s[i].percentage;
         if(s[i].percentage<minP)minP = s[i].percentage;
 
+        // Counts Grades
         if(strcmp(s[i].grade, "O")==0) gradeCounts[0]++;
         else if (strcmp(s[i].grade, "A+")==0) gradeCounts[1]++;
         else if (strcmp(s[i].grade, "A")==0) gradeCounts[2]++;
@@ -160,6 +193,8 @@ void show_Output(struct Student s[], int count){
         else gradeCounts[7]++;
     }
 
+
+    // STATS
     printf("\nClass Average: %.2f%%\n", classTotal / count);
     fprintf(fp,"\nClass Average: %.2f%%\n", classTotal / count);
 
