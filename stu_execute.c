@@ -169,6 +169,26 @@ void show_Output(struct Student s[], int count){
     printf("Lowest Perc : %.2f%%\n", minP);
     fprintf(fp,"Lowest Perc : %.2f%%\n", minP);
 
+    printf("\n No. of students in each grade:\n");
+    printf("O : %d\n", gradeCounts[0]);
+    printf("A+: %d\n", gradeCounts[1]);
+    printf("A : %d\n", gradeCounts[2]);
+    printf("B+: %d\n", gradeCounts[3]);
+    printf("B : %d\n", gradeCounts[4]);
+    printf("C : %d\n", gradeCounts[5]);
+    printf("D : %d\n", gradeCounts[6]);
+    printf("F : %d\n", gradeCounts[7]);
+
+    fprintf(fp,"\n No. of students in each grade:\n");
+    fprintf(fp,"O : %d\n", gradeCounts[0]);
+    fprintf(fp,"A+: %d\n", gradeCounts[1]);
+    fprintf(fp,"A : %d\n", gradeCounts[2]);
+    fprintf(fp,"B+: %d\n", gradeCounts[3]);
+    fprintf(fp,"B : %d\n", gradeCounts[4]);
+    fprintf(fp,"C : %d\n", gradeCounts[5]);
+    fprintf(fp,"D : %d\n", gradeCounts[6]);
+    fprintf(fp,"F : %d\n", gradeCounts[7]);
+
     printf("\nResults saved to results.txt\n");
     fclose(fp);
 }

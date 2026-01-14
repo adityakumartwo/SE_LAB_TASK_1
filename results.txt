@@ -24,3 +24,13 @@ S120       Aadhya          200.00     40.00      F     0.00
 Class Average: 70.82%
 Highest Perc : 100.00%
 Lowest Perc : 36.00%
+
+ No. of students in each grade:
+O : 4
+A+: 1
+A : 4
+B+: 2
+B : 1
+C : 1
+D : 1
+F : 6
