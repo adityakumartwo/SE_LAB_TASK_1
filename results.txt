@@ -1,5 +1,5 @@
 
-ID         Name            Marks (Sub 1-5)           Total    Perc     Grd   CGPA 
+ID         Name            Marks (SUBJECTS 1-5)      Total    Perc     Grd   CGPA 
 
 S101       Aarav           90,80,96,84,98            448.00   89.60    A+    9.00 
 S102       Vivaan          70,76,80,60,90            376.00   75.20    A     8.00 

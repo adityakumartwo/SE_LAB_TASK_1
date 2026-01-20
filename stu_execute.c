@@ -15,7 +15,7 @@ int read_Input(struct Student s[], int max_size){
     
     int count = 0;
     char tempID[20], tempName[50];
-    float min[5], maj[5];
+    float min[SUBJECTS], maj[SUBJECTS];
 
     // It read the file line by line
     while (fscanf(fp, "%s %s", tempID,tempName) == 2)
@@ -37,7 +37,7 @@ int read_Input(struct Student s[], int max_size){
         }
 
         // Read the data and check the marks
-        for(int i = 0; i<5; i++){
+        for(int i = 0; i<SUBJECTS; i++){
 
             fscanf(fp, "%f %f", &min[i], &maj[i]);
 
@@ -53,7 +53,7 @@ int read_Input(struct Student s[], int max_size){
             strcpy(s[count].id, tempID);
 
             strcpy(s[count].name, tempName);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < SUBJECTS; i++)
             {
                 s[count].subjects[i].minor = min[i];
                 s[count].subjects[i].major = maj[i];
@@ -72,7 +72,7 @@ void calcu_Results(struct Student s[], int count){
         float grandSum = 0;
         int failFlag = 0;
 
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < SUBJECTS; j++)
         {
             float total = s[i].subjects[j].minor + s[i].subjects[j].major;
 
@@ -84,7 +84,7 @@ void calcu_Results(struct Student s[], int count){
         }
 
         s[i].grandTotal = grandSum;
-        s[i].percentage = grandSum/5.0;
+        s[i].percentage = (float)(grandSum)/SUBJECTS;
         s[i].isFail = failFlag;
 
         show_Grade(s[i].percentage, failFlag, s[i].grade, &s[i].cgpa);
@@ -95,7 +95,7 @@ void calcu_Results(struct Student s[], int count){
 
 // check id is valid or duplicate
 int valid_ID(char *id, struct Student s[], int count){
-    for (int i = 0; i<strlen(id); i++)
+    for (size_t i = 0; i<strlen(id); i++)
     {
         if(!isalnum(id[i])) return 0; // Must be letter or numbers
     }
@@ -108,7 +108,7 @@ int valid_ID(char *id, struct Student s[], int count){
 
 // check name is valid
 int valid_Name(char *name){
-    for(int i = 0; i<strlen(name);i++)
+    for(size_t i = 0; i<strlen(name);i++)
     {
         if(!isalpha(name[i])) return 0; // Must be letter only
     }
@@ -156,10 +156,10 @@ void show_Output(struct Student s[], int count){
 
     // Columns Headers which show the data in tabular form
     // Print to Screen
-    printf("\n%-10s %-15s %-25s %-8s %-8s %-5s %-5s\n", "ID", "Name", "Marks (Sub 1-5)", "Total", "Perc", "Grd", "CGPA");
+    printf("\n%-10s %-15s %-25s %-8s %-8s %-5s %-5s\n", "ID", "Name", "Marks (SUBJECTS 1-5)", "Total", "Perc", "Grd", "CGPA");
 
     // Print to File
-    fprintf(fp, "\n%-10s %-15s %-25s %-8s %-8s %-5s %-5s\n", "ID", "Name", "Marks (Sub 1-5)", "Total", "Perc", "Grd", "CGPA");
+    fprintf(fp, "\n%-10s %-15s %-25s %-8s %-8s %-5s %-5s\n", "ID", "Name", "Marks (SUBJECTS 1-5)", "Total", "Perc", "Grd", "CGPA");
 
     printf("\n");
 
@@ -172,7 +172,7 @@ void show_Output(struct Student s[], int count){
 
         char temp[10];
 
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < SUBJECTS; j++)
         {
             sprintf(temp, "%.0f", s[i].subjects[j].total);
 
